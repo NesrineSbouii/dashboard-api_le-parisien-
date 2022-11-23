@@ -18,6 +18,8 @@ use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use App\Repository\UserRepository;
+
 use ApiPlatform\Metadata\ApiResource;
 use App\State\UserProcessor;
 
@@ -37,7 +39,7 @@ use App\State\UserProcessor;
 )]
 #[UniqueEntity(fields:["username"])]
 #[UniqueEntity(fields:["email"])]
-#[ORM\Entity(repositoryClass:"App\Repository\User")]
+#[ORM\Entity()]
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -126,11 +128,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
     public function getFirstname(): string
     {
-        return (string) $this->username;
+        return (string) $this->firstname;
     }
     public function getLastname(): string
     {
-        return (string) $this->username;
+        return (string) $this->lastname;
     }
     
     public function getRoles(): array
@@ -179,16 +181,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setFirstname(string $username): self
+    public function setFirstname(string $firstname): self
     {
-        $this->username = $firstname;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
-    public function setLastname(string $username): self
+    public function setLastname(string $lastrname): self
     {
-        $this->username = $lastrname;
+        $this->lastname = $lastrname;
 
         return $this;
     }
